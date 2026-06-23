@@ -10,9 +10,13 @@
     "dev": "astro dev",
     "build": "node scripts/check-assets.mjs && astro build",
     "preview": "astro preview",
-    "check": "node scripts/check-assets.mjs"
+    "check": "node scripts/check-assets.mjs",
+    "deploy": "wrangler deploy"
   },
   "dependencies": {
     "astro": "^4.16.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.24.0"
   }
 }

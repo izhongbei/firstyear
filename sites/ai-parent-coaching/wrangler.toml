@@ -1,0 +1,10 @@
+# Cloudflare Workers Builds: static Astro output via [assets].
+# Dashboard Deploy command: npx wrangler deploy (default).
+# name MUST match the Worker project name in Cloudflare Dashboard.
+name = "ai-parent-coaching"
+compatibility_date = "2025-06-23"
+workers_dev = true
+
+[assets]
+directory = "./dist"
+not_found_handling = "single-page-application"

@@ -1,0 +1,7 @@
+# Astro site — never commit build output or dependencies
+sites/ai-parent-coaching/node_modules/
+sites/ai-parent-coaching/dist/
+sites/ai-parent-coaching/.astro/
+
+# Local tooling
+.superpowers/
