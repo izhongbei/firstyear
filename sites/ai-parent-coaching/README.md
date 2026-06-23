@@ -47,7 +47,7 @@ npm run check      # 验证二维码/OG 图片存在
 
 | 变量名 | 值 | 说明 |
 |--------|-----|------|
-| `NODE_VERSION` | `20` | 与 `package.json` engines 一致 |
+| `NODE_VERSION` | `22` | wrangler 4.103+ 要求 Node ≥22 |
 
 **API Token**：Workers Builds 首次连接 Git 时 Cloudflare 通常**自动生成** Build 用 API Token，一般**无需**手动填 `CLOUDFLARE_API_TOKEN`。若改用自建 Token，需具备 Workers Scripts (edit) 等权限（见 [Workers Builds 文档](https://developers.cloudflare.com/workers/ci-cd/builds/configuration/)）。
 
@@ -85,7 +85,7 @@ Account ID：Dashboard → 任意 Worker → 右侧 **Account ID**。
 | Build command | `npm ci && npm run build` |
 | Build output directory | `dist` |
 | Deploy command | **留空** |
-| `NODE_VERSION` | `20` |
+| `NODE_VERSION` | `22` |
 
 若新版 Pages UI **强制**填写 Deploy command，使用 Pages 专用命令（**不是** `wrangler deploy`）：
 
