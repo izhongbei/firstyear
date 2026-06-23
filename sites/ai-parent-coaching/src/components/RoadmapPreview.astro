@@ -1,0 +1,34 @@
+---
+import Section from './Section.astro';
+import Button from './Button.astro';
+import MarkdownBody from './MarkdownBody.astro';
+
+type AstroComponentFactory = (props?: Record<string, unknown>) => any;
+
+interface Props {
+  title: string;
+  items: string[];
+  Content: AstroComponentFactory;
+  ctaLabel: string;
+}
+
+const { title, items, Content, ctaLabel } = Astro.props;
+---
+
+<Section id="roadmap" title={title} tabindex={-1}>
+  <ul class="roadmap-list">
+    {items.map((item) => <li>{item}</li>)}
+  </ul>
+  <MarkdownBody Content={Content} />
+  <Button variant="secondary" data-open-modal="qr-modal">{ctaLabel}</Button>
+</Section>
+
+<style>
+  .roadmap-list {
+    padding-left: 1.25rem;
+    margin: 0 0 1rem;
+  }
+  .roadmap-list li {
+    margin-bottom: 0.5rem;
+  }
+</style>

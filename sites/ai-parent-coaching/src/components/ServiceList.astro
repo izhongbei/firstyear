@@ -1,0 +1,43 @@
+---
+import Section from './Section.astro';
+import MarkdownBody from './MarkdownBody.astro';
+
+type AstroComponentFactory = (props?: Record<string, unknown>) => any;
+
+interface Tier {
+  name: string;
+  duration: string;
+  benefits: string[];
+}
+
+interface Props {
+  title: string;
+  tiers: Tier[];
+  Content: AstroComponentFactory;
+}
+
+const { title, tiers, Content } = Astro.props;
+---
+
+<Section id="service" title={title} tabindex={-1}>
+  <div class="grid-2">
+    {tiers.map((tier) => (
+      <article class="card">
+        <h3>{tier.name}</h3>
+        <p class="tier-duration">{tier.duration}</p>
+        <ul>
+          {tier.benefits.map((b) => <li>{b}</li>)}
+        </ul>
+      </article>
+    ))}
+  </div>
+  <MarkdownBody Content={Content} class="service-note" />
+</Section>
+
+<style>
+  h3 { margin: 0; }
+  .tier-duration { color: var(--color-primary); font-weight: 600; margin: 0.25rem 0 0.75rem; }
+  ul { padding-left: 1.25rem; margin: 0; }
+  li { margin-bottom: 0.35rem; }
+  .service-note { margin-top: 1.5rem; color: var(--color-text-muted); }
+</style>

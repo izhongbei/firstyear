@@ -1,0 +1,40 @@
+---
+import Section from './Section.astro';
+import MarkdownBody from './MarkdownBody.astro';
+
+type AstroComponentFactory = (props?: Record<string, unknown>) => any;
+
+interface Card {
+  icon: string;
+  title: string;
+  body: string;
+}
+
+interface Props {
+  title: string;
+  cards: Card[];
+  Content: AstroComponentFactory;
+}
+
+const { title, cards, Content } = Astro.props;
+---
+
+<Section id="pain" title={title} tabindex={-1}>
+  <div class="grid-2">
+    {cards.map((card) => (
+      <article class="card pain-card">
+        <span class="pain-icon" aria-hidden="true">{card.icon}</span>
+        <h3>{card.title}</h3>
+        <p>{card.body}</p>
+      </article>
+    ))}
+  </div>
+  <MarkdownBody Content={Content} class="pain-footer" />
+</Section>
+
+<style>
+  .pain-card h3 { margin: 0.5rem 0; font-size: 1.1rem; }
+  .pain-card p { margin: 0; color: var(--color-text-muted); font-size: 0.95rem; }
+  .pain-icon { font-size: 1.75rem; }
+  .pain-footer { margin-top: 1.5rem; text-align: center; color: var(--color-text-muted); }
+</style>

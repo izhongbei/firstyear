@@ -1,0 +1,36 @@
+---
+import Section from './Section.astro';
+import MarkdownBody from './MarkdownBody.astro';
+
+type AstroComponentFactory = (props?: Record<string, unknown>) => any;
+
+interface Pillar {
+  title: string;
+  body: string;
+}
+
+interface Props {
+  title: string;
+  pillars: Pillar[];
+  Content: AstroComponentFactory;
+}
+
+const { title, pillars, Content } = Astro.props;
+---
+
+<Section id="solution" title={title} tabindex={-1}>
+  <div class="grid-3">
+    {pillars.map((p) => (
+      <article class="card">
+        <h3>{p.title}</h3>
+        <p>{p.body}</p>
+      </article>
+    ))}
+  </div>
+  <MarkdownBody Content={Content} class="solution-tagline" />
+</Section>
+
+<style>
+  h3 { margin: 0 0 0.5rem; color: var(--color-secondary); }
+  .solution-tagline { margin-top: 2rem; text-align: center; font-size: 1.05rem; }
+</style>

@@ -1,0 +1,24 @@
+---
+type AstroComponentFactory = (props?: Record<string, unknown>) => any;
+
+interface Props {
+  Content: AstroComponentFactory;
+  class?: string;
+}
+
+const { Content, class: className } = Astro.props;
+---
+
+<div class:list={['markdown-body', className]}>
+  <Content />
+</div>
+
+<style>
+  .markdown-body :global(p) {
+    margin: 0;
+  }
+
+  .markdown-body :global(p + p) {
+    margin-top: 0.75rem;
+  }
+</style>

@@ -1,0 +1,43 @@
+---
+import Section from './Section.astro';
+import MarkdownBody from './MarkdownBody.astro';
+
+type AstroComponentFactory = (props?: Record<string, unknown>) => any;
+
+interface Comparison {
+  vs: string;
+  point: string;
+}
+
+interface Props {
+  title: string;
+  comparisons: Comparison[];
+  disclaimer: string;
+  expertNote: string;
+  Content: AstroComponentFactory;
+}
+
+const { title, comparisons, disclaimer, expertNote, Content } = Astro.props;
+---
+
+<Section id="trust" title={title} tabindex={-1}>
+  <ul class="compare-list">
+    {comparisons.map((c) => (
+      <li><strong>相比{c.vs}：</strong>{c.point}</li>
+    ))}
+  </ul>
+  <p class="expert-note">{expertNote}</p>
+  <aside class="disclaimer card" role="note">
+    <p>{disclaimer}</p>
+  </aside>
+  <MarkdownBody Content={Content} class="trust-body" />
+</Section>
+
+<style>
+  .compare-list { padding-left: 0; list-style: none; margin: 0 0 1.5rem; }
+  .compare-list li { margin-bottom: 0.75rem; padding-left: 1rem; border-left: 3px solid var(--color-secondary); }
+  .expert-note { font-style: italic; color: var(--color-text-muted); }
+  .disclaimer { background: #fff8f6; border-color: var(--color-primary); margin: 1rem 0; }
+  .disclaimer p { margin: 0; font-size: 0.9rem; }
+  .trust-body { margin-top: 1rem; }
+</style>

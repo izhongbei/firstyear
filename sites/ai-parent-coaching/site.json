@@ -1,0 +1,18 @@
+{
+  "title": "AI新手家长陪跑营",
+  "tagline": "西安 4-12 月龄科学育儿陪跑",
+  "description": "AI育儿助手 + 真人专家答疑 + 本地线下活动，帮新手父母知道「下一步该做什么」。",
+  "locale": "zh-CN",
+  "city": "西安",
+  "ageRange": "4-12月龄",
+  "primaryCta": {
+    "label": "领取免费《4-12月龄成长路线图》",
+    "modalTitle": "扫码添加企业微信",
+    "modalSteps": ["扫码添加企业微信", "回复「路线图」", "进群领取 PDF"]
+  },
+  "og": {
+    "image": "/images/og-cover.png",
+    "type": "website"
+  },
+  "wechatQr": "/images/wechat-qr.png"
+}

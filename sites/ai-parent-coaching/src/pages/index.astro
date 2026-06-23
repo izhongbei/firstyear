@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import PainCards from '../components/PainCards.astro';
+import SolutionTriad from '../components/SolutionTriad.astro';
+import RoadmapPreview from '../components/RoadmapPreview.astro';
+import ServiceList from '../components/ServiceList.astro';
+import TrustBlock from '../components/TrustBlock.astro';
+import CtaFooter from '../components/CtaFooter.astro';
+import QrModal from '../components/QrModal.astro';
+import { getSiteConfig, getSections, getSectionById } from '../lib/content';
+
+const site = getSiteConfig();
+const sections = await getSections();
+const hero = getSectionById(sections, 'hero')!;
+const pain = getSectionById(sections, 'pain')!;
+const solution = getSectionById(sections, 'solution')!;
+const roadmap = getSectionById(sections, 'roadmap')!;
+const service = getSectionById(sections, 'service')!;
+const trust = getSectionById(sections, 'trust')!;
+const cta = getSectionById(sections, 'cta')!;
+const fm = (s: typeof hero) => s.frontmatter;
+---
+
+<BaseLayout>
+  <Nav />
+  <main>
+    <Hero
+      title={hero.title}
+      headline={String(fm(hero).headline ?? hero.title)}
+      subheadline={String(fm(hero).subheadline ?? site.tagline)}
+      Content={hero.Content}
+      ctaLabel={site.primaryCta.label}
+      city={site.city}
+      ageRange={site.ageRange}
+    />
+    <PainCards
+      title={pain.title}
+      cards={fm(pain).cards as { icon: string; title: string; body: string }[]}
+      Content={pain.Content}
+    />
+    <SolutionTriad
+      title={solution.title}
+      pillars={fm(solution).pillars as { title: string; body: string }[]}
+      Content={solution.Content}
+    />
+    <RoadmapPreview
+      title={roadmap.title}
+      items={fm(roadmap).items as string[]}
+      Content={roadmap.Content}
+      ctaLabel={site.primaryCta.label}
+    />
+    <ServiceList
+      title={service.title}
+      tiers={fm(service).tiers as { name: string; duration: string; benefits: string[] }[]}
+      Content={service.Content}
+    />
+    <TrustBlock
+      title={trust.title}
+      comparisons={fm(trust).comparisons as { vs: string; point: string }[]}
+      disclaimer={String(fm(trust).disclaimer)}
+      expertNote={String(fm(trust).expertNote)}
+      Content={trust.Content}
+    />
+    <CtaFooter
+      title={cta.title}
+      Content={cta.Content}
+      ctaLabel={site.primaryCta.label}
+      wechatQr={site.wechatQr}
+      modalSteps={site.primaryCta.modalSteps}
+    />
+  </main>
+  <QrModal
+    title={site.primaryCta.modalTitle}
+    steps={site.primaryCta.modalSteps}
+    qrSrc={site.wechatQr}
+  />
+</BaseLayout>

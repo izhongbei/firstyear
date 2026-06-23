@@ -1,0 +1,70 @@
+---
+import Section from './Section.astro';
+import Button from './Button.astro';
+import MarkdownBody from './MarkdownBody.astro';
+
+type AstroComponentFactory = (props?: Record<string, unknown>) => any;
+
+interface Props {
+  title: string;
+  Content: AstroComponentFactory;
+  ctaLabel: string;
+  wechatQr: string;
+  modalSteps: string[];
+}
+
+const { title, Content, ctaLabel, wechatQr, modalSteps } = Astro.props;
+---
+
+<Section id="cta" title={title} tabindex={-1}>
+  <div class="cta-grid">
+    <div>
+      <MarkdownBody Content={Content} />
+      <ol class="cta-steps">
+        {modalSteps.map((step) => <li>{step}</li>)}
+      </ol>
+      <Button variant="primary" data-open-modal="qr-modal">{ctaLabel}</Button>
+    </div>
+    <figure class="qr-static">
+      <img
+        src={wechatQr}
+        alt="企业微信二维码，扫码添加领取路线图"
+        width="200"
+        height="200"
+        loading="lazy"
+        data-qr-fallback
+      />
+      <figcaption>扫码添加企业微信</figcaption>
+      <p class="qr-fallback-msg" hidden>请联系客服获取二维码</p>
+    </figure>
+  </div>
+</Section>
+
+<style>
+  .cta-grid {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+  }
+  @media (min-width: 768px) {
+    .cta-grid { grid-template-columns: 1fr auto; }
+  }
+  .cta-steps { padding-left: 1.25rem; }
+  .qr-static { text-align: center; margin: 0; }
+  .qr-static img {
+    border-radius: var(--radius-card);
+    border: 1px solid var(--color-border);
+  }
+  figcaption { margin-top: 0.5rem; font-size: 0.9rem; color: var(--color-text-muted); }
+  .qr-fallback-msg { color: var(--color-text-muted); }
+</style>
+
+<script>
+  document.querySelectorAll('[data-qr-fallback]').forEach((img) => {
+    img.addEventListener('error', () => {
+      img.style.display = 'none';
+      const msg = img.parentElement?.querySelector('.qr-fallback-msg');
+      if (msg) msg.hidden = false;
+    });
+  });
+</script>

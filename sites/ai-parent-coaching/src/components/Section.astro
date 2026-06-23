@@ -1,0 +1,24 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  as?: 'h1' | 'h2';
+  tabindex?: number;
+}
+
+const { id, title, as = 'h2', tabindex } = Astro.props;
+const Heading = as;
+---
+
+<section class="section" id={id} aria-labelledby={`${id}-heading`}>
+  <div class="container">
+    <Heading id={`${id}-heading`} tabindex={tabindex}>{title}</Heading>
+    <slot />
+  </div>
+</section>
+
+<style>
+  h1, h2 {
+    scroll-margin-top: 5rem;
+  }
+</style>

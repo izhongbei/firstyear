@@ -1,0 +1,94 @@
+---
+interface Props {
+  id?: string;
+  title: string;
+  steps: string[];
+  qrSrc: string;
+}
+
+const { id = 'qr-modal', title, steps, qrSrc } = Astro.props;
+---
+
+<div class="modal" id={id} role="dialog" aria-modal="true" aria-labelledby={`${id}-title`} hidden>
+  <div class="modal-backdrop" data-close-modal tabindex="-1"></div>
+  <div class="modal-panel card">
+    <button type="button" class="modal-close" data-close-modal aria-label="关闭对话框">×</button>
+    <h2 id={`${id}-title`}>{title}</h2>
+    <ol>
+      {steps.map((step) => <li>{step}</li>)}
+    </ol>
+    <img
+      src={qrSrc}
+      alt="企业微信二维码"
+      width="220"
+      height="220"
+      loading="eager"
+    />
+  </div>
+</div>
+
+<style>
+  .modal[hidden] { display: none; }
+  .modal:not([hidden]) {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(45, 52, 54, 0.45);
+  }
+  .modal-panel {
+    position: relative;
+    z-index: 1;
+    max-width: 22rem;
+    width: 100%;
+    text-align: center;
+  }
+  .modal-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.75rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+  h2 { font-size: 1.25rem; margin: 0 0 1rem; }
+  ol { text-align: left; padding-left: 1.25rem; margin: 0 0 1rem; }
+</style>
+
+<script>
+  const modal = document.getElementById('qr-modal');
+  if (modal) {
+    const openers = document.querySelectorAll('[data-open-modal="qr-modal"]');
+    const closers = modal.querySelectorAll('[data-close-modal]');
+    let lastFocus: HTMLElement | null = null;
+
+    function openModal() {
+      lastFocus = document.activeElement as HTMLElement;
+      modal.removeAttribute('hidden');
+      const closeBtn = modal.querySelector('.modal-close') as HTMLElement;
+      closeBtn?.focus();
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.setAttribute('hidden', '');
+      document.body.style.overflow = '';
+      lastFocus?.focus();
+    }
+
+    openers.forEach((el) => el.addEventListener('click', openModal));
+    closers.forEach((el) => el.addEventListener('click', closeModal));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.hasAttribute('hidden')) closeModal();
+    });
+  }
+</script>

@@ -1,0 +1,35 @@
+---
+import '../styles/global.css';
+import { getSiteConfig } from '../lib/content';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const site = getSiteConfig();
+const { title = `${site.title} | ${site.tagline}`, description = site.description } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImagePath = site.og.image.startsWith('http') ? site.og.image : new URL(site.og.image, Astro.site).href;
+---
+
+<!doctype html>
+<html lang={site.locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={site.og.type} />
+    <meta property="og:image" content={ogImagePath} />
+    <meta property="og:url" content={canonicalURL.href} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
