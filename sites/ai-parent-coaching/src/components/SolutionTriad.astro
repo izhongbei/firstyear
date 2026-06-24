@@ -19,9 +19,10 @@ const { title, pillars, Content } = Astro.props;
 ---
 
 <Section id="solution" title={title} tabindex={-1}>
-  <div class="grid-3">
-    {pillars.map((p) => (
-      <article class="card">
+  <div class="triad">
+    {pillars.map((p, i) => (
+      <article class="card triad-card">
+        <span class="triad-index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
         <h3>{p.title}</h3>
         <p>{p.body}</p>
       </article>
@@ -31,6 +32,43 @@ const { title, pillars, Content } = Astro.props;
 </Section>
 
 <style>
-  h3 { margin: 0 0 0.5rem; color: var(--color-secondary); }
-  .solution-tagline { margin-top: 2rem; text-align: center; font-size: 1.05rem; }
+  .triad {
+    display: grid;
+    gap: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .triad {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .triad-card {
+    border-top: 3px solid var(--color-secondary);
+    padding-top: 1.5rem;
+  }
+  .triad-index {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-secondary);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+  h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  .triad-card p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  .solution-tagline {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 1rem;
+    color: var(--color-text-muted);
+  }
 </style>

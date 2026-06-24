@@ -49,7 +49,15 @@ const { title, Content, ctaLabel, wechatQr, modalSteps } = Astro.props;
   @media (min-width: 768px) {
     .cta-grid { grid-template-columns: 1fr auto; }
   }
-  .cta-steps { padding-left: 1.25rem; }
+  .cta-steps {
+    padding-left: 1.25rem;
+    color: var(--color-text-muted);
+    margin: 0 0 1.5rem;
+  }
+  .cta-steps li {
+    margin-bottom: 0.35rem;
+    line-height: 1.55;
+  }
   .qr-static { text-align: center; margin: 0; }
   .qr-static img {
     border-radius: var(--radius-card);

@@ -1,15 +1,17 @@
 :root {
   --color-primary: #E8A598;
   --color-secondary: #7BAE7F;
-  --color-bg: #FFFBF7;
+  --color-bg: #FAFAFA;
   --color-surface: #FFFFFF;
-  --color-text: #2D3436;
-  --color-text-muted: #636E72;
-  --color-border: #E8E4E0;
+  --color-text: #1A1A1A;
+  --color-text-muted: #6B7280;
+  --color-border: #E5E5E5;
   --font-sans: system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
   --content-max-width: 960px;
   --section-spacing: 5rem;
+  --hero-spacing: 6rem;
   --radius-card: 12px;
+  --radius-button: 8px;
 }
 
 *,
@@ -26,7 +28,7 @@ body {
   margin: 0;
   font-family: var(--font-sans);
   font-size: 1rem;
-  line-height: 1.7;
+  line-height: 1.75;
   color: var(--color-text);
   background: var(--color-bg);
 }
@@ -45,13 +47,21 @@ img {
   padding-block: var(--section-spacing);
 }
 
-.section h2 {
-  font-size: clamp(1.5rem, 4vw, 2rem);
+.section--hero {
+  padding-block: var(--hero-spacing);
+}
+
+.section h2,
+.section h1 {
+  font-size: clamp(1.5rem, 4vw, 1.75rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
   margin: 0 0 1.5rem;
   color: var(--color-text);
 }
 
-.section h2:focus {
+.section h2:focus,
+.section h1:focus {
   outline: 2px solid var(--color-primary);
   outline-offset: 4px;
 }
@@ -61,6 +71,7 @@ img {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
   padding: 1.25rem 1.5rem;
+  box-shadow: none;
 }
 
 .btn {
@@ -68,15 +79,17 @@ img {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.875rem 1.5rem;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.75rem 1.5rem;
   font-size: 1rem;
   font-weight: 600;
   font-family: inherit;
   border: none;
-  border-radius: 999px;
+  border-radius: var(--radius-button);
   cursor: pointer;
   text-decoration: none;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
 
 .btn:focus-visible {
@@ -87,17 +100,21 @@ img {
 .btn--primary {
   background: var(--color-primary);
   color: #fff;
-  box-shadow: 0 4px 14px rgba(232, 165, 152, 0.35);
 }
 
 .btn--primary:hover {
   transform: translateY(-1px);
+  filter: brightness(0.97);
 }
 
 .btn--secondary {
   background: var(--color-surface);
-  color: var(--color-secondary);
-  border: 2px solid var(--color-secondary);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.btn--secondary:hover {
+  border-color: var(--color-text-muted);
 }
 
 .grid-2 {
